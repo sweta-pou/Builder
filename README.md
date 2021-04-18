@@ -1,3 +1,5 @@
+Burger Builder is a project in react.js with firebase storage.
+Here you can create your own burger with available ingredients and place your order.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
