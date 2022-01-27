@@ -6,9 +6,7 @@ import Orders from './container/Orders/Orders';
 import {Route,Switch} from 'react-router-dom';
 
 function App() {
-  console.log("APP.js");
   return (
-    
     <div >
       <Layout>
          <Switch>
