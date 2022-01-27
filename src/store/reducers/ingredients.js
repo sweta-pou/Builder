@@ -26,7 +26,7 @@ const reducers =(state=initailState,action)=>{
                 total:state.total + price[action.name]
                 
             }
-        };
+        }
         case actionTypes.REMOVE_INGREDIENTS:{
                return{
                    ...state,
