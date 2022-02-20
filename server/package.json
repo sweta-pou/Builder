@@ -5,6 +5,9 @@
   "main": "api-server.js",
   "scripts": {
     "start": "node dist/api-server.js",
+    "postinstall": "tsc",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w",
     "dev": "nodemon src/api-server.ts",
     "build": "tsc -p ."
   },
@@ -20,5 +23,6 @@
     "supertokens-node": "^6.0.3",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
-  }
+  },
+  "engines": { "node": "16.13.2" }
 }
