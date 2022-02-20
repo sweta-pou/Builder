@@ -1,0 +1,68 @@
+version: "3"
+
+services:
+  react-app:
+    image: react-app
+    ports:
+      - "3000:3000"
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+
+  api-server:
+    image: api-server
+    ports:
+      - "3001:3001"
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    environment:
+      - SUPERTOKENS_CONNECTION="http://supertokens:3567"
+      - SUPERTOKENS_API_KEY="Akjnv3iunvsoi8=-sackjij3ncisds"
+    links:
+      - supertokens
+
+  mysql:
+    image: mysql/mysql-server
+    ports:
+      - "3307:3307"
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=supertokens
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    volumes:
+      - my-datavolume:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_ARBITRARY=0
+    links:
+      - mysql
+
+  supertokens:
+    image: supertokens/supertokens-mysql
+    ports:
+      - "3567:3567"
+    environment:
+      - MYSQL_USER="root"
+      - MYSQL_PASSWORD="root"
+      - MYSQL_HOST="mysql"
+      - MYSQL_PORT="3306"
+      - MYSQL_DATABASE_NAME="supertokens"
+      - API_KEYS="Akjnv3iunvsoi8=-sackjij3ncisds,asnj9=asdcda-OI982JIUN=-a,bdfj9=asdcda-OI982JIUN=-a"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+
+volumes:
+  my-datavolume:
