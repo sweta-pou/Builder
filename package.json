@@ -15,10 +15,11 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "redux": "^4.0.5",
-    "serve": "^13.0.2"
+    "serve": "^13.0.2",
+    "supertokens-auth-react": "^0.18.7"
   },
   "scripts": {
-    "start": "serve -s build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

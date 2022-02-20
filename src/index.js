@@ -1,29 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import {BrowserRouter} from 'react-router-dom';
-import {Provider} from 'react-redux';
-import ingredientsReducer from './store/reducers/ingredients';
-import {createStore} from 'redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import ingredientsReducer from "./store/reducers/ingredients";
+import { createStore } from "redux";
 
 // const RootReducer = combineReducers({
 //   ingredients:ingredientsReducer
 // })
-const store =createStore(ingredientsReducer);
+const store = createStore(ingredientsReducer);
 const app = (
   <Provider store={store}>
-  <BrowserRouter>
+    <BrowserRouter>
       <App />
-  </BrowserRouter>
+    </BrowserRouter>
   </Provider>
 );
 ReactDOM.render(
-  <React.StrictMode>
-    {app}
-  </React.StrictMode>,
-  document.getElementById('root')
+  <React.StrictMode>{app}</React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

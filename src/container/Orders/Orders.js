@@ -1,34 +1,37 @@
-import React,{Component} from 'react';
-import Order from '../../components/order/order';
-import axios from '../../axios-orders';
-import WithErrorHandler from '../../hoc/withErrorHandler/WithErrorHandler';
-class Orders extends Component{
-  state={
-    orders:[],
-    loading:true
-  }
-  componentDidMount(){
-    axios.get('/orders.json').then(res=>{
-      const fetchedData=[];
-      for(let key in res.data)
-      {
-        fetchedData.push({...res.data[key],id:key});
-      }
-      this.setState({loading:false,orders:fetchedData});
-    }).catch(err=>{
-      this.setState({loading:false});
-    })
-  }
-  render(){
-      return(
-      <div>
-{this.state.orders.map((order=>(
+import React, { useEffect, useState } from "react";
+import { useSessionContext } from "supertokens-auth-react/recipe/session";
 
-  <Order key={order.id} order={order} ingredient={order.ingredient}/>)
-   ))}
-      </div>
-      )
-  }
+import Order from "../../components/order/order";
+import axios from "../../axios-orders";
+import WithErrorHandler from "../../hoc/withErrorHandler/WithErrorHandler";
+
+function Orders() {
+  const [orders, setOrders] = useState([]);
+
+  let { userId } = useSessionContext();
+
+  useEffect(() => {
+    axios
+      .get("/orders.json")
+      .then((res) => {
+        const fetchedData = [];
+        for (let key in res.data) {
+          if (res.data[key].userID === userId) {
+            fetchedData.push({ ...res.data[key], id: key });
+          }
+        }
+        setOrders(fetchedData);
+      })
+      .catch((err) => {});
+  }, [userId]);
+
+  return (
+    <div>
+      {orders.map((order) => (
+        <Order key={order.id} order={order} ingredient={order.ingredient} />
+      ))}
+    </div>
+  );
 }
 
-export default WithErrorHandler(Orders,axios);
+export default WithErrorHandler(Orders, axios);
